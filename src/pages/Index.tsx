@@ -2,43 +2,44 @@ import { useState } from "react";
 import { toast } from "sonner";
 import MainMenu from "@/components/MainMenu";
 import CharacterSelect from "@/components/CharacterSelect";
+import Settings from "@/components/Settings";
 import ParticleBackground from "@/components/ParticleBackground";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-type Screen = "menu" | "character";
+type Screen = "menu" | "character" | "settings";
 
 const Index = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>("menu");
+  const { t } = useLanguage();
 
   const handleNewGame = () => {
     setCurrentScreen("character");
   };
 
   const handleLoadGame = () => {
-    toast("Spielstand laden", {
-      description: "Diese Funktion wird bald verfügbar sein.",
+    toast(t("loadGameTitle"), {
+      description: t("loadGameDesc"),
     });
   };
 
   const handleSettings = () => {
-    toast("Einstellungen", {
-      description: "Diese Funktion wird bald verfügbar sein.",
-    });
+    setCurrentScreen("settings");
   };
 
   const handleExit = () => {
-    toast("Exit", {
-      description: "Das Spiel läuft im Browser und kann nicht direkt geschlossen werden.",
+    toast(t("exitTitle"), {
+      description: t("exitDesc"),
     });
   };
 
   const handleSelectCharacter = (character: string) => {
     const characterNames: Record<string, string> = {
-      ritter: "Ritter",
-      magier: "Magier",
-      irrlicht: "Irrlicht",
+      knight: t("knight"),
+      mage: t("mage"),
+      wisp: t("wisp"),
     };
-    toast(`${characterNames[character]} gewählt!`, {
-      description: "Dein Abenteuer beginnt bald...",
+    toast(`${characterNames[character]} ${t("characterChosen")}`, {
+      description: t("adventureBegins"),
     });
   };
 
@@ -65,6 +66,10 @@ const Index = () => {
             onSelectCharacter={handleSelectCharacter}
             onBack={handleBack}
           />
+        )}
+
+        {currentScreen === "settings" && (
+          <Settings onBack={handleBack} />
         )}
       </div>
     </main>
