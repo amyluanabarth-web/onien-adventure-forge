@@ -27,6 +27,8 @@ const Index = () => {
   };
 
   const handleExit = () => {
+    window.close();
+    // Fallback message if window.close() doesn't work (browser security)
     toast(t("exitTitle"), {
       description: t("exitDesc"),
     });
