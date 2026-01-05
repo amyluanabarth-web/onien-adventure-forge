@@ -1,5 +1,10 @@
 export type Language = "en" | "de";
 
+export const languages: { value: Language; label: string }[] = [
+  { value: "en", label: "English" },
+  { value: "de", label: "Deutsch" },
+];
+
 export const translations = {
   en: {
     // Main Menu
@@ -24,6 +29,10 @@ export const translations = {
     language: "Language",
     english: "English",
     german: "German",
+    musicVolume: "Music Volume",
+    soundVolume: "Sound Effects",
+    censoring: "Content Filter",
+    censoringDesc: "Hide mature content",
     
     // Toasts
     loadGameTitle: "Load Game",
@@ -56,6 +65,10 @@ export const translations = {
     language: "Sprache",
     english: "Englisch",
     german: "Deutsch",
+    musicVolume: "Musiklautstärke",
+    soundVolume: "Soundeffekte",
+    censoring: "Inhaltsfilter",
+    censoringDesc: "Nicht jugendfreie Inhalte ausblenden",
     
     // Toasts
     loadGameTitle: "Spielstand laden",
