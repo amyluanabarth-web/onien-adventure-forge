@@ -25,6 +25,13 @@ export const translations = {
     wisp: "Wisp",
     wispDesc: "Mystical wanderer between worlds",
     
+    // Character Overview
+    continueGame: "Continue",
+    backToCharacters: "Back to Characters",
+    knightLore: "Forged in forgotten wars, the Knight carries the weight of a thousand fallen oaths. Their armor bears scars that whisper of battles against things that should not exist.",
+    mageLore: "They who read the stars found only madness written there. Now the Mage speaks in tongues of fire and frost, their mind a bridge between realms best left unopened.",
+    wispLore: "Neither living nor dead, the Wisp drifts through the veil. Some say they are echoes of souls that refused to fade, others whisper they are harbingers of what lies beyond.",
+    
     // Settings
     language: "Language",
     english: "English",
@@ -60,6 +67,13 @@ export const translations = {
     mageDesc: "Beherrscher arkaner Künste",
     wisp: "Irrlicht",
     wispDesc: "Mystischer Wanderer zwischen den Welten",
+    
+    // Character Overview
+    continueGame: "Weiter",
+    backToCharacters: "Zurück zur Auswahl",
+    knightLore: "Geschmiedet in vergessenen Kriegen, trägt der Ritter die Last tausend gebrochener Eide. Seine Rüstung trägt Narben, die von Kämpfen gegen Dinge flüstern, die nicht existieren sollten.",
+    mageLore: "Jene, die die Sterne lasen, fanden dort nur Wahnsinn geschrieben. Nun spricht der Magier in Zungen aus Feuer und Frost, sein Geist eine Brücke zwischen Reichen, die besser verschlossen blieben.",
+    wispLore: "Weder lebend noch tot, schwebt das Irrlicht durch den Schleier. Manche sagen, sie seien Echos von Seelen, die sich weigerten zu verblassen, andere flüstern, sie seien Vorboten dessen, was jenseits liegt.",
     
     // Settings
     language: "Sprache",
