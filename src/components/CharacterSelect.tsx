@@ -1,39 +1,42 @@
 import { MenuButton } from "@/components/ui/menu-button";
 import { Sword, Sparkles, Flame } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CharacterSelectProps {
   onSelectCharacter: (character: string) => void;
   onBack: () => void;
 }
 
-const characters = [
-  {
-    id: "ritter",
-    name: "Ritter",
-    icon: Sword,
-    description: "Meister des Schwertes und der Verteidigung",
-  },
-  {
-    id: "magier",
-    name: "Magier",
-    icon: Sparkles,
-    description: "Beherrscher arkaner Künste",
-  },
-  {
-    id: "irrlicht",
-    name: "Irrlicht",
-    icon: Flame,
-    description: "Mystischer Wanderer zwischen den Welten",
-  },
-];
-
 const CharacterSelect = ({ onSelectCharacter, onBack }: CharacterSelectProps) => {
+  const { t } = useLanguage();
+
+  const characters = [
+    {
+      id: "knight",
+      name: t("knight"),
+      icon: Sword,
+      description: t("knightDesc"),
+    },
+    {
+      id: "mage",
+      name: t("mage"),
+      icon: Sparkles,
+      description: t("mageDesc"),
+    },
+    {
+      id: "wisp",
+      name: t("wisp"),
+      icon: Flame,
+      description: t("wispDesc"),
+    },
+  ];
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 animate-fade-in">
       {/* Title */}
       <div className="mb-12 text-center">
         <h1 className="text-4xl md:text-5xl font-display font-semibold tracking-[0.2em] text-foreground">
-          Charakterwahl
+          {t("characterSelect")}
         </h1>
         <div className="mt-4 h-px w-32 mx-auto bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
       </div>
@@ -73,7 +76,7 @@ const CharacterSelect = ({ onSelectCharacter, onBack }: CharacterSelectProps) =>
 
       {/* Back button */}
       <MenuButton onClick={onBack} variant="secondary" className="max-w-[200px]">
-        Zurück
+        {t("back")}
       </MenuButton>
     </div>
   );
