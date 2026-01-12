@@ -18,8 +18,10 @@ interface SettingsProps {
 
 const Settings = ({ onBack }: SettingsProps) => {
   const { language, setLanguage, t } = useLanguage();
+  const [masterVolume, setMasterVolume] = useState(100);
   const [musicVolume, setMusicVolume] = useState(80);
   const [soundVolume, setSoundVolume] = useState(80);
+  const [textSize, setTextSize] = useState<"small" | "medium" | "large">("medium");
   const [censoring, setCensoring] = useState(false);
 
   return (
@@ -56,38 +58,80 @@ const Settings = ({ onBack }: SettingsProps) => {
           </Select>
         </div>
 
-        {/* Music Volume */}
-        <div className="p-6 border border-border bg-card/50 backdrop-blur-sm">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-display text-xl tracking-wider text-foreground">
-              {t("musicVolume")}
-            </h3>
-            <span className="text-muted-foreground font-display">{musicVolume}%</span>
+        {/* Audio Settings - Combined Box */}
+        <div className="p-6 border border-border bg-card/50 backdrop-blur-sm space-y-6">
+          <h3 className="font-display text-xl tracking-wider text-foreground">
+            {t("audio")}
+          </h3>
+          
+          {/* Master Volume */}
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-foreground">{t("masterVolume")}</span>
+              <span className="text-muted-foreground font-display">{masterVolume}%</span>
+            </div>
+            <Slider
+              value={[masterVolume]}
+              onValueChange={(value) => setMasterVolume(value[0])}
+              max={100}
+              step={1}
+              className="w-full"
+            />
           </div>
-          <Slider
-            value={[musicVolume]}
-            onValueChange={(value) => setMusicVolume(value[0])}
-            max={100}
-            step={1}
-            className="w-full"
-          />
+
+          <div className="h-px w-full bg-border/50" />
+
+          {/* Music Volume */}
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-foreground">{t("musicVolume")}</span>
+              <span className="text-muted-foreground font-display">{musicVolume}%</span>
+            </div>
+            <Slider
+              value={[musicVolume]}
+              onValueChange={(value) => setMusicVolume(value[0])}
+              max={100}
+              step={1}
+              className="w-full"
+            />
+          </div>
+
+          {/* Sound Effects Volume */}
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-foreground">{t("soundVolume")}</span>
+              <span className="text-muted-foreground font-display">{soundVolume}%</span>
+            </div>
+            <Slider
+              value={[soundVolume]}
+              onValueChange={(value) => setSoundVolume(value[0])}
+              max={100}
+              step={1}
+              className="w-full"
+            />
+          </div>
         </div>
 
-        {/* Sound Effects Volume */}
+        {/* Text Size Setting */}
         <div className="p-6 border border-border bg-card/50 backdrop-blur-sm">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-display text-xl tracking-wider text-foreground">
-              {t("soundVolume")}
-            </h3>
-            <span className="text-muted-foreground font-display">{soundVolume}%</span>
+          <h3 className="font-display text-xl tracking-wider text-foreground mb-4">
+            {t("textSize")}
+          </h3>
+          <div className="flex gap-2">
+            {(["small", "medium", "large"] as const).map((size) => (
+              <button
+                key={size}
+                onClick={() => setTextSize(size)}
+                className={`flex-1 py-2 px-4 border transition-all duration-300 font-display tracking-wider ${
+                  textSize === size
+                    ? "border-primary bg-primary/20 text-foreground"
+                    : "border-border bg-card/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                }`}
+              >
+                {t(`textSize${size.charAt(0).toUpperCase() + size.slice(1)}` as keyof typeof t)}
+              </button>
+            ))}
           </div>
-          <Slider
-            value={[soundVolume]}
-            onValueChange={(value) => setSoundVolume(value[0])}
-            max={100}
-            step={1}
-            className="w-full"
-          />
         </div>
 
         {/* Censoring Toggle */}
