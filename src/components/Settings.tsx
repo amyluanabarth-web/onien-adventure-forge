@@ -1,6 +1,5 @@
 import { MenuButton } from "@/components/ui/menu-button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useSettings } from "@/contexts/SettingsContext";
 import { languages } from "@/lib/translations";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -11,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
 
 interface SettingsProps {
   onBack: () => void;
@@ -18,18 +18,11 @@ interface SettingsProps {
 
 const Settings = ({ onBack }: SettingsProps) => {
   const { language, setLanguage, t } = useLanguage();
-  const {
-    textSize,
-    setTextSize,
-    masterVolume,
-    setMasterVolume,
-    musicVolume,
-    setMusicVolume,
-    soundVolume,
-    setSoundVolume,
-    censoring,
-    setCensoring,
-  } = useSettings();
+  const [masterVolume, setMasterVolume] = useState(100);
+  const [musicVolume, setMusicVolume] = useState(80);
+  const [soundVolume, setSoundVolume] = useState(80);
+  const [textSize, setTextSize] = useState<"small" | "medium" | "large">("medium");
+  const [censoring, setCensoring] = useState(false);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 animate-fade-in">
