@@ -27,17 +27,17 @@ const Settings = ({ onBack }: SettingsProps) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 animate-fade-in">
       {/* Title */}
-      <div className="mb-12 text-center">
-        <h1 className="text-4xl md:text-5xl font-display font-semibold tracking-[0.2em] text-foreground">
+      <div className="mb-6 text-center">
+        <h1 className="text-3xl md:text-4xl font-display font-semibold tracking-[0.2em] text-foreground">
           {t("settings")}
         </h1>
-        <div className="mt-4 h-px w-32 mx-auto bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+        <div className="mt-3 h-px w-32 mx-auto bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
       </div>
 
-      <div className="w-full max-w-md space-y-6 mb-8">
+      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         {/* Language setting */}
-        <div className="p-6 border border-border bg-card/50 backdrop-blur-sm">
-          <h3 className="font-display text-xl tracking-wider text-foreground mb-4">
+        <div className="p-4 border border-border bg-card/50 backdrop-blur-sm">
+          <h3 className="font-display text-lg tracking-wider text-foreground mb-3">
             {t("language")}
           </h3>
           <Select value={language} onValueChange={(value) => setLanguage(value as "en" | "de")}>
@@ -59,70 +59,49 @@ const Settings = ({ onBack }: SettingsProps) => {
         </div>
 
         {/* Audio Settings - Combined Box */}
-        <div className="p-6 border border-border bg-card/50 backdrop-blur-sm space-y-6">
-          <h3 className="font-display text-xl tracking-wider text-foreground">
+        <div className="p-4 border border-border bg-card/50 backdrop-blur-sm space-y-4">
+          <h3 className="font-display text-lg tracking-wider text-foreground">
             {t("audio")}
           </h3>
           
-          {/* Master Volume */}
           <div>
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-foreground">{t("masterVolume")}</span>
-              <span className="text-muted-foreground font-display">{masterVolume}%</span>
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-sm text-foreground">{t("masterVolume")}</span>
+              <span className="text-xs text-muted-foreground font-display">{masterVolume}%</span>
             </div>
-            <Slider
-              value={[masterVolume]}
-              onValueChange={(value) => setMasterVolume(value[0])}
-              max={100}
-              step={1}
-              className="w-full"
-            />
+            <Slider value={[masterVolume]} onValueChange={(value) => setMasterVolume(value[0])} max={100} step={1} className="w-full" />
           </div>
 
           <div className="h-px w-full bg-border/50" />
 
-          {/* Music Volume */}
           <div>
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-foreground">{t("musicVolume")}</span>
-              <span className="text-muted-foreground font-display">{musicVolume}%</span>
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-sm text-foreground">{t("musicVolume")}</span>
+              <span className="text-xs text-muted-foreground font-display">{musicVolume}%</span>
             </div>
-            <Slider
-              value={[musicVolume]}
-              onValueChange={(value) => setMusicVolume(value[0])}
-              max={100}
-              step={1}
-              className="w-full"
-            />
+            <Slider value={[musicVolume]} onValueChange={(value) => setMusicVolume(value[0])} max={100} step={1} className="w-full" />
           </div>
 
-          {/* Sound Effects Volume */}
           <div>
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-foreground">{t("soundVolume")}</span>
-              <span className="text-muted-foreground font-display">{soundVolume}%</span>
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-sm text-foreground">{t("soundVolume")}</span>
+              <span className="text-xs text-muted-foreground font-display">{soundVolume}%</span>
             </div>
-            <Slider
-              value={[soundVolume]}
-              onValueChange={(value) => setSoundVolume(value[0])}
-              max={100}
-              step={1}
-              className="w-full"
-            />
+            <Slider value={[soundVolume]} onValueChange={(value) => setSoundVolume(value[0])} max={100} step={1} className="w-full" />
           </div>
         </div>
 
         {/* Text Size Setting */}
-        <div className="p-6 border border-border bg-card/50 backdrop-blur-sm">
-          <h3 className="font-display text-xl tracking-wider text-foreground mb-4">
+        <div className="p-4 border border-border bg-card/50 backdrop-blur-sm">
+          <h3 className="font-display text-lg tracking-wider text-foreground mb-3">
             {t("textSize")}
           </h3>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2">
             {(["small", "medium", "large"] as const).map((size) => (
               <button
                 key={size}
                 onClick={() => setTextSize(size)}
-                className={`flex-1 py-2 px-4 border transition-all duration-300 font-display tracking-wider ${
+                className={`py-1.5 px-3 border transition-all duration-300 font-display tracking-wider text-sm ${
                   textSize === size
                     ? "border-primary bg-primary/20 text-foreground"
                     : "border-border bg-card/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
@@ -135,21 +114,17 @@ const Settings = ({ onBack }: SettingsProps) => {
         </div>
 
         {/* Censoring Toggle */}
-        <div className="p-6 border border-border bg-card/50 backdrop-blur-sm">
-          <div className="flex justify-between items-center">
-            <div>
-              <h3 className="font-display text-xl tracking-wider text-foreground">
-                {t("censoring")}
-              </h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                {t("censoringDesc")}
-              </p>
-            </div>
-            <Switch
-              checked={censoring}
-              onCheckedChange={setCensoring}
-            />
-          </div>
+        <div className="p-4 border border-border bg-card/50 backdrop-blur-sm">
+          <h3 className="font-display text-lg tracking-wider text-foreground mb-2">
+            {t("censoring")}
+          </h3>
+          <p className="text-xs text-muted-foreground mb-3">
+            {t("censoringDesc")}
+          </p>
+          <Switch
+            checked={censoring}
+            onCheckedChange={setCensoring}
+          />
         </div>
       </div>
 
