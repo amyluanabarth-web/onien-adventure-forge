@@ -17,11 +17,10 @@ interface SettingsProps {
 }
 
 const Settings = ({ onBack }: SettingsProps) => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, textSize, setTextSize } = useLanguage();
   const [masterVolume, setMasterVolume] = useState(100);
   const [musicVolume, setMusicVolume] = useState(80);
   const [soundVolume, setSoundVolume] = useState(80);
-  const [textSize, setTextSize] = useState<"small" | "medium" | "large">("medium");
   const [censoring, setCensoring] = useState(false);
 
   return (
