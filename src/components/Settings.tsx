@@ -107,7 +107,7 @@ const Settings = ({ onBack }: SettingsProps) => {
                     : "border-border bg-card/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
                 }`}
               >
-                {t(`textSize${size.charAt(0).toUpperCase() + size.slice(1)}` as keyof typeof t)}
+                {t(`textSize${size.charAt(0).toUpperCase() + size.slice(1)}` as "textSizeSmall" | "textSizeMedium" | "textSizeLarge")}
               </button>
             ))}
           </div>
