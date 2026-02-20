@@ -3,11 +3,12 @@ import { toast } from "sonner";
 import MainMenu from "@/components/MainMenu";
 import CharacterSelect from "@/components/CharacterSelect";
 import CharacterOverview from "@/components/CharacterOverview";
+import StoryIntro from "@/components/StoryIntro";
 import Settings from "@/components/Settings";
 import ParticleBackground from "@/components/ParticleBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type Screen = "menu" | "character" | "characterOverview" | "settings";
+type Screen = "menu" | "character" | "characterOverview" | "storyIntro" | "settings";
 
 const Index = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>("menu");
@@ -41,14 +42,18 @@ const Index = () => {
   };
 
   const handleContinueWithCharacter = () => {
+    setCurrentScreen("storyIntro");
+  };
+
+  const handleStoryBegin = () => {
     if (selectedCharacter) {
       const characterNames: Record<string, string> = {
         knight: t("knight"),
         mage: t("mage"),
         wisp: t("wisp"),
       };
-      toast(`${characterNames[selectedCharacter]} ${t("characterChosen")}`, {
-        description: t("adventureBegins"),
+      toast(`${characterNames[selectedCharacter]} — ${t("adventureBegins")}`, {
+        description: t("loadGameDesc"),
       });
     }
   };
@@ -92,6 +97,13 @@ const Index = () => {
 
         {currentScreen === "settings" && (
           <Settings onBack={handleBack} />
+        )}
+
+        {currentScreen === "storyIntro" && selectedCharacter && (
+          <StoryIntro
+            character={selectedCharacter}
+            onContinue={handleStoryBegin}
+          />
         )}
       </div>
     </main>
