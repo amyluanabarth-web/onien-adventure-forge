@@ -54,6 +54,12 @@ export const translations = {
     exitDesc: "The game runs in the browser and cannot be closed directly.",
     characterChosen: "chosen!",
     adventureBegins: "Your adventure begins soon...",
+
+    // Story Intros
+    knightStoryIntro: "The fortress of Vael'Khar crumbles at the edge of the world. You stand before its shattered gates — the last knight of a forgotten order. Your blade hums with an oath sworn to a dead king. Beyond the threshold, something ancient stirs... and it remembers your name.",
+    mageStoryIntro: "The Obsidian Library has been sealed for three hundred years. Tonight, the wards have failed. You feel the forbidden knowledge calling from within — whispers that taste of starlight and ash. Your hands tremble not from fear, but from hunger. The first page turns itself.",
+    wispStoryIntro: "You awaken in the space between heartbeats. The mortal world flickers like candlelight around you — translucent, fragile, fading. A thread of silver light stretches before you into the dark. Something at the other end is pulling. You do not remember who you were. But you remember how to follow.",
+    storyBegin: "Begin your journey",
   },
   de: {
     // Main Menu
@@ -103,6 +109,12 @@ export const translations = {
     exitDesc: "Das Spiel läuft im Browser und kann nicht direkt geschlossen werden.",
     characterChosen: "gewählt!",
     adventureBegins: "Dein Abenteuer beginnt bald...",
+
+    // Story Intros
+    knightStoryIntro: "Die Festung von Vael'Khar zerbröckelt am Rand der Welt. Du stehst vor ihren zerschmetterten Toren — der letzte Ritter eines vergessenen Ordens. Deine Klinge summt mit einem Eid, geschworen einem toten König. Jenseits der Schwelle regt sich etwas Uraltes... und es erinnert sich an deinen Namen.",
+    mageStoryIntro: "Die Obsidian-Bibliothek war dreihundert Jahre versiegelt. Heute Nacht haben die Schutzzauber versagt. Du spürst das verbotene Wissen, das aus dem Inneren ruft — Flüstern, das nach Sternenlicht und Asche schmeckt. Deine Hände zittern nicht vor Angst, sondern vor Hunger. Die erste Seite blättert sich von selbst um.",
+    wispStoryIntro: "Du erwachst im Raum zwischen Herzschlägen. Die sterbliche Welt flackert wie Kerzenlicht um dich — durchscheinend, zerbrechlich, verblassend. Ein silberner Lichtfaden erstreckt sich vor dir in die Dunkelheit. Etwas am anderen Ende zieht. Du erinnerst dich nicht, wer du warst. Aber du erinnerst dich, wie man folgt.",
+    storyBegin: "Beginne deine Reise",
   },
 } as const;
 
