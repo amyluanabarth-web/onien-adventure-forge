@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 interface StoryIntroProps {
   character: string;
-  onContinue: () => void;
+  onContinue: (name: string) => void;
 }
 
 const StoryIntro = ({ character, onContinue }: StoryIntroProps) => {
@@ -21,7 +21,7 @@ const StoryIntro = ({ character, onContinue }: StoryIntroProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
-      onContinue();
+      onContinue(name.trim());
     }
   };
 

@@ -4,15 +4,17 @@ import MainMenu from "@/components/MainMenu";
 import CharacterSelect from "@/components/CharacterSelect";
 import CharacterOverview from "@/components/CharacterOverview";
 import StoryIntro from "@/components/StoryIntro";
+import VisualNovel from "@/components/VisualNovel";
 import Settings from "@/components/Settings";
 import ParticleBackground from "@/components/ParticleBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type Screen = "menu" | "character" | "characterOverview" | "storyIntro" | "settings";
+type Screen = "menu" | "character" | "characterOverview" | "storyIntro" | "visualNovel" | "settings";
 
 const Index = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>("menu");
   const [selectedCharacter, setSelectedCharacter] = useState<string | null>(null);
+  const [playerName, setPlayerName] = useState("");
   const { t } = useLanguage();
 
   const handleNewGame = () => {
@@ -43,6 +45,11 @@ const Index = () => {
 
   const handleContinueWithCharacter = () => {
     setCurrentScreen("storyIntro");
+  };
+
+  const handleNameSubmit = (name: string) => {
+    setPlayerName(name);
+    setCurrentScreen("visualNovel");
   };
 
   const handleStoryBegin = () => {
@@ -102,8 +109,12 @@ const Index = () => {
         {currentScreen === "storyIntro" && selectedCharacter && (
           <StoryIntro
             character={selectedCharacter}
-            onContinue={handleStoryBegin}
+            onContinue={handleNameSubmit}
           />
+        )}
+
+        {currentScreen === "visualNovel" && (
+          <VisualNovel playerName={playerName} />
         )}
       </div>
     </main>
