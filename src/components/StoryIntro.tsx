@@ -15,8 +15,6 @@ const storyKeys: Record<string, "knightStoryIntro" | "mageStoryIntro" | "wispSto
 
 const StoryIntro = ({ character, onContinue }: StoryIntroProps) => {
   const { t } = useLanguage();
-  const [displayedText, setDisplayedText] = useState("");
-  const [isComplete, setIsComplete] = useState(false);
   const [showContent, setShowContent] = useState(false);
 
   const fullText = t(storyKeys[character] || "knightStoryIntro");
@@ -27,37 +25,8 @@ const StoryIntro = ({ character, onContinue }: StoryIntroProps) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Typewriter effect
-  useEffect(() => {
-    if (!showContent) return;
-
-    let index = 0;
-    setDisplayedText("");
-    setIsComplete(false);
-
-    const interval = setInterval(() => {
-      index++;
-      setDisplayedText(fullText.slice(0, index));
-      if (index >= fullText.length) {
-        clearInterval(interval);
-        setIsComplete(true);
-      }
-    }, 35);
-
-    return () => clearInterval(interval);
-  }, [fullText, showContent]);
-
-  // Allow skipping the typewriter
-  const handleSkip = () => {
-    setDisplayedText(fullText);
-    setIsComplete(true);
-  };
-
   return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen px-6 cursor-pointer"
-      onClick={!isComplete ? handleSkip : undefined}
-    >
+    <div className="flex flex-col items-center justify-center min-h-screen px-6">
       {/* Vignette overlay */}
       <div
         className="fixed inset-0 pointer-events-none transition-opacity duration-1000"
@@ -69,7 +38,7 @@ const StoryIntro = ({ character, onContinue }: StoryIntroProps) => {
 
       {/* Story text container */}
       <div
-        className="relative z-10 max-w-2xl text-center transition-all duration-1000"
+        className="relative z-10 max-w-2xl text-center transition-all duration-[2000ms] ease-out"
         style={{
           opacity: showContent ? 1 : 0,
           transform: showContent ? "translateY(0)" : "translateY(20px)",
@@ -78,46 +47,31 @@ const StoryIntro = ({ character, onContinue }: StoryIntroProps) => {
         {/* Decorative top line */}
         <div className="h-px w-24 mx-auto mb-8 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
-        {/* Character name - subtle */}
+        {/* Character name */}
         <p className="text-xs tracking-[0.5em] uppercase text-primary/60 mb-6 font-display">
           {t(character as "knight" | "mage" | "wisp")}
         </p>
 
-        {/* Story text with typewriter */}
+        {/* Story text */}
         <p className="text-foreground/90 text-lg md:text-xl leading-relaxed font-serif italic">
-          "{displayedText}
-          {!isComplete && (
-            <span className="inline-block w-0.5 h-5 bg-primary/80 ml-0.5 animate-pulse align-middle" />
-          )}
-          {isComplete && '"'}
+          "{fullText}"
         </p>
 
         {/* Decorative bottom line */}
-        <div
-          className="h-px w-24 mx-auto mt-8 bg-gradient-to-r from-transparent via-primary/40 to-transparent transition-opacity duration-500"
-          style={{ opacity: isComplete ? 1 : 0 }}
-        />
+        <div className="h-px w-24 mx-auto mt-8 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
-        {/* Continue button - appears after text completes */}
+        {/* Continue button */}
         <div
-          className="mt-10 transition-all duration-700"
+          className="mt-10 transition-all duration-700 delay-1000"
           style={{
-            opacity: isComplete ? 1 : 0,
-            transform: isComplete ? "translateY(0)" : "translateY(10px)",
-            pointerEvents: isComplete ? "auto" : "none",
+            opacity: showContent ? 1 : 0,
+            transform: showContent ? "translateY(0)" : "translateY(10px)",
           }}
         >
           <MenuButton onClick={onContinue} className="max-w-[220px] mx-auto">
             {t("storyBegin")}
           </MenuButton>
         </div>
-
-        {/* Skip hint */}
-        {!isComplete && (
-          <p className="text-muted-foreground/40 text-xs mt-8 tracking-widest font-display">
-            — click to skip —
-          </p>
-        )}
       </div>
     </div>
   );
