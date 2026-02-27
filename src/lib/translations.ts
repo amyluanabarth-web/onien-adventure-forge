@@ -63,6 +63,19 @@ export const translations = {
     enterName: "Enter your name",
     namePlaceholder: "Your name...",
     submitName: "Continue",
+
+    // Wisp Dialog
+    wispDialog1: "The forest hums with an eerie glow. Twisted roots claw at the mossy ground, and the air smells of damp earth and something... ancient. You drift between the luminescent mushrooms, your faint light flickering nervously.",
+    wispDialog2: "You've gotten separated from the others again. The familiar paths have shifted — or maybe you never knew them at all. Every direction looks the same: dark, tangled, alive.",
+    wispDialog3: "Hey. Hey! Over here, you little fool.",
+    wispDialog4: "A brighter glow pulses through the undergrowth — your brother, Erryn, pushing through a curtain of hanging moss. His light burns steadier than yours, sharper. He always did burn brighter.",
+    wispDialog5: "I told you to stay close. Do you have any idea how deep we've wandered? This part of the woods... things live here that don't like our kind.",
+    wispDialog6: "I didn't mean to drift off. Something was calling to me — a sound, like singing, but...",
+    wispDialog7: "Stop. Don't follow sounds you can't name. That's the first rule, and you know it.",
+    wispDialog8: "He hovers closer, his glow wrapping around yours like a protective shell. For a moment, the darkness pulls back.",
+    wispDialog9: "Stay behind me. We'll find the trail back. And this time — don't. Wander. Off.",
+    wispDialog10: "...Okay. I'm sorry, Erryn.",
+    wispDialog11: "Don't be sorry. Be careful. Now come on — before the forest notices us.",
   },
   de: {
     // Main Menu
@@ -121,6 +134,19 @@ export const translations = {
     enterName: "Gib deinen Namen ein",
     namePlaceholder: "Dein Name...",
     submitName: "Weiter",
+
+    // Wisp Dialog
+    wispDialog1: "Der Wald summt in einem unheimlichen Leuchten. Verdrehte Wurzeln krallen sich am moosigen Boden fest, und die Luft riecht nach feuchter Erde und etwas... Uraltem. Du treibst zwischen den leuchtenden Pilzen umher, dein schwaches Licht flackert nervös.",
+    wispDialog2: "Du hast dich wieder von den anderen getrennt. Die vertrauten Pfade haben sich verschoben — oder vielleicht kanntest du sie nie. Jede Richtung sieht gleich aus: dunkel, verwachsen, lebendig.",
+    wispDialog3: "Hey. Hey! Hier drüben, du kleiner Narr.",
+    wispDialog4: "Ein helleres Leuchten pulsiert durch das Unterholz — dein Bruder Erryn, der sich durch einen Vorhang aus hängendem Moos schiebt. Sein Licht brennt gleichmäßiger als deines, schärfer. Er brannte schon immer heller.",
+    wispDialog5: "Ich hab dir gesagt, du sollst in der Nähe bleiben. Hast du eine Ahnung, wie tief wir gewandert sind? Dieser Teil des Waldes... hier leben Dinge, die unsere Art nicht mögen.",
+    wispDialog6: "Ich wollte nicht abdriften. Etwas hat mich gerufen — ein Klang, wie Gesang, aber...",
+    wispDialog7: "Hör auf. Folge keinen Klängen, die du nicht benennen kannst. Das ist die erste Regel, und du kennst sie.",
+    wispDialog8: "Er schwebt näher, sein Leuchten umhüllt deines wie eine schützende Hülle. Für einen Moment weicht die Dunkelheit zurück.",
+    wispDialog9: "Bleib hinter mir. Wir finden den Weg zurück. Und diesmal — nicht. Herumirren.",
+    wispDialog10: "...Okay. Tut mir leid, Erryn.",
+    wispDialog11: "Sei nicht traurig. Sei vorsichtig. Und jetzt komm — bevor der Wald uns bemerkt.",
   },
 } as const;
 
