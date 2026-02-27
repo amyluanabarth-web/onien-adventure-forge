@@ -76,6 +76,39 @@ export const translations = {
     wispDialog9: "Stay behind me. We'll find the trail back. And this time — don't. Wander. Off.",
     wispDialog10: "...Okay. I'm sorry, Erryn.",
     wispDialog11: "Don't be sorry. Be careful. Now come on — before the forest notices us.",
+
+    // Choice
+    choicePrompt: "The path splits ahead. Which way do you go?",
+    choiceRoad: "Take the rundown road",
+    choiceRoadDesc: "An old overgrown path, barely visible through the brush.",
+    choiceSounds: "Follow the loud sounds",
+    choiceSoundsDesc: "Crashing and shouting echoes from deeper in the forest.",
+
+    // Path A - Rundown Road
+    roadDialog1: "You drift down the crumbling path. Erryn follows reluctantly, his glow dimming with unease. The trees thin out, revealing ruts in the earth — an old road, long forgotten.",
+    roadDialog2: "The road bends sharply. Beyond the turn, something large blocks the way — the wreckage of a coach, its wheels shattered, its frame twisted against a fallen oak.",
+    roadDialog3: "Wait... do you hear that?",
+    roadDialog4: "A faint groan rises from inside the overturned coach. You drift closer and see a figure — an old man, pinned beneath a collapsed beam. His robes are torn, and his breathing is shallow.",
+    roadDialog5: "Please... someone... I can't feel my legs...",
+    roadDialog6: "Erryn, we have to help him!",
+    roadDialog7: "We don't even have hands, {player}. We're wisps. But... maybe our light can do something. Focus — push your glow into the beam. Together.",
+    roadDialog8: "You and Erryn press your lights against the heavy wood. It groans, shifts — and with a burst of combined radiance, the beam slides free. The old man gasps, pulling himself onto the mossy ground.",
+    roadDialog9: "Bless you... bless you both. I am Aldric. I was carrying something important... something that must not fall into the wrong hands.",
+    roadDialog10: "He clutches a leather satchel to his chest, his eyes wide with a fear that has nothing to do with his injuries.",
+    roadDialog11: "The forest is not safe tonight. Dark things move between the trees. You two... you saved my life. Perhaps fate brought you here for a reason.",
+
+    // Path B - Loud Sounds
+    soundDialog1: "Against Erryn's protests, you follow the sounds deeper into the forest. The crashing grows louder — steel on steel, punctuated by bursts of crackling energy.",
+    soundDialog2: "{player}, this is a terrible idea. Whatever is making that noise could squash us without even noticing.",
+    soundDialog3: "You push through a wall of brambles and freeze. A clearing opens before you, lit by flashes of arcane fire and the gleam of polished armor.",
+    soundDialog4: "A knight in battered plate swings a massive blade at a robed figure — a mage, who deflects each blow with shimmering barriers of violet light. The ground around them is scorched and torn.",
+    soundDialog5: "You dare steal from the Order? That grimoire belongs to Vael'Khar!",
+    soundDialog6: "It belongs to no one, you blind fool! If your masters unseal it, everything burns!",
+    soundDialog7: "A stray bolt of arcane energy tears through the undergrowth — straight toward you. Erryn shoves you aside just in time, but the blast scatters your light across the clearing.",
+    soundDialog8: "Both combatants freeze, staring at the two flickering wisps now exposed in the open.",
+    soundDialog9: "What in the—? Wisps? Here?",
+    soundDialog10: "The mage lowers her staff, eyes narrowing. The knight keeps his blade raised but doesn't advance. For a heartbeat, everything is still.",
+    soundDialog11: "You shouldn't be here, little lights. This forest is a battlefield tonight. Run — before you become collateral.",
   },
   de: {
     // Main Menu
@@ -147,6 +180,39 @@ export const translations = {
     wispDialog9: "Bleib hinter mir. Wir finden den Weg zurück. Und diesmal — nicht. Herumirren.",
     wispDialog10: "...Okay. Tut mir leid, Erryn.",
     wispDialog11: "Sei nicht traurig. Sei vorsichtig. Und jetzt komm — bevor der Wald uns bemerkt.",
+
+    // Choice
+    choicePrompt: "Der Weg teilt sich. Welchen Weg nehmt ihr?",
+    choiceRoad: "Den verfallenen Weg nehmen",
+    choiceRoadDesc: "Ein alter, überwucherter Pfad, kaum sichtbar durch das Gestrüpp.",
+    choiceSounds: "Den lauten Geräuschen folgen",
+    choiceSoundsDesc: "Krachen und Rufe hallen aus der Tiefe des Waldes.",
+
+    // Path A - Rundown Road
+    roadDialog1: "Ihr schwebt den bröckelnden Pfad entlang. Erryn folgt widerwillig, sein Leuchten wird vor Unbehagen schwächer. Die Bäume lichten sich und offenbaren Spurrillen in der Erde — eine alte Straße, längst vergessen.",
+    roadDialog2: "Die Straße biegt scharf ab. Hinter der Kurve versperrt etwas Großes den Weg — das Wrack einer Kutsche, ihre Räder zersplittert, ihr Rahmen gegen eine umgestürzte Eiche verdreht.",
+    roadDialog3: "Warte... hörst du das?",
+    roadDialog4: "Ein schwaches Stöhnen erhebt sich aus der umgestürzten Kutsche. Du schwebst näher und siehst eine Gestalt — ein alter Mann, eingeklemmt unter einem eingestürzten Balken. Seine Roben sind zerrissen und sein Atem ist flach.",
+    roadDialog5: "Bitte... jemand... ich kann meine Beine nicht spüren...",
+    roadDialog6: "Erryn, wir müssen ihm helfen!",
+    roadDialog7: "Wir haben nicht einmal Hände, {player}. Wir sind Irrlichter. Aber... vielleicht kann unser Licht etwas bewirken. Konzentrier dich — drück dein Leuchten in den Balken. Zusammen.",
+    roadDialog8: "Du und Erryn presst euer Licht gegen das schwere Holz. Es ächzt, verschiebt sich — und mit einem Ausbruch vereinter Strahlung gleitet der Balken frei. Der alte Mann schnappt nach Luft und zieht sich auf den moosigen Boden.",
+    roadDialog9: "Seid gesegnet... seid beide gesegnet. Ich bin Aldric. Ich habe etwas Wichtiges transportiert... etwas, das nicht in die falschen Hände fallen darf.",
+    roadDialog10: "Er presst eine Ledertasche an seine Brust, seine Augen weit aufgerissen vor einer Angst, die nichts mit seinen Verletzungen zu tun hat.",
+    roadDialog11: "Der Wald ist heute Nacht nicht sicher. Dunkle Dinge bewegen sich zwischen den Bäumen. Ihr zwei... ihr habt mein Leben gerettet. Vielleicht hat das Schicksal euch aus einem Grund hierher geführt.",
+
+    // Path B - Loud Sounds
+    soundDialog1: "Gegen Erryns Protest folgt ihr den Geräuschen tiefer in den Wald. Das Krachen wird lauter — Stahl auf Stahl, unterbrochen von knisternden Energieausbrüchen.",
+    soundDialog2: "{player}, das ist eine furchtbare Idee. Was auch immer diesen Lärm macht, könnte uns zerquetschen, ohne es zu bemerken.",
+    soundDialog3: "Ihr drängt euch durch eine Wand aus Dornen und erstarrt. Eine Lichtung öffnet sich vor euch, erhellt von Blitzen arkanen Feuers und dem Glanz polierter Rüstung.",
+    soundDialog4: "Ein Ritter in ramponierter Plattenrüstung schwingt eine massive Klinge gegen eine Gestalt in Roben — eine Magierin, die jeden Schlag mit schimmernden Barrieren aus violettem Licht abwehrt. Der Boden um sie herum ist versengt und aufgerissen.",
+    soundDialog5: "Du wagst es, vom Orden zu stehlen? Das Grimoire gehört Vael'Khar!",
+    soundDialog6: "Es gehört niemandem, du blinder Narr! Wenn deine Meister es entsiegeln, verbrennt alles!",
+    soundDialog7: "Ein verirrter Blitz arkaner Energie reißt durch das Unterholz — direkt auf euch zu. Erryn stößt dich gerade noch rechtzeitig beiseite, aber die Explosion zerstreut euer Licht über die Lichtung.",
+    soundDialog8: "Beide Kämpfer erstarren und starren auf die zwei flackernden Irrlichter, die nun ungeschützt in der offenen Lichtung schweben.",
+    soundDialog9: "Was zum—? Irrlichter? Hier?",
+    soundDialog10: "Die Magierin senkt ihren Stab, die Augen zusammengekniffen. Der Ritter hält seine Klinge erhoben, rückt aber nicht vor. Für einen Herzschlag ist alles still.",
+    soundDialog11: "Ihr solltet nicht hier sein, kleine Lichter. Dieser Wald ist heute Nacht ein Schlachtfeld. Lauft — bevor ihr zu Kollateralschaden werdet.",
   },
 } as const;
 
