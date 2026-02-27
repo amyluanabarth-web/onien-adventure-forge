@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import forestBackground from "@/assets/forest-background.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
+import type { TranslationKey } from "@/lib/translations";
 
 interface DialogLine {
   speaker: string;
-  text: string;
+  textKey: TranslationKey;
 }
 
 interface VisualNovelProps {
@@ -11,55 +13,23 @@ interface VisualNovelProps {
 }
 
 const wispDialog: DialogLine[] = [
-  {
-    speaker: "",
-    text: "The forest hums with an eerie glow. Twisted roots claw at the mossy ground, and the air smells of damp earth and something... ancient. You drift between the luminescent mushrooms, your faint light flickering nervously.",
-  },
-  {
-    speaker: "",
-    text: "You've gotten separated from the others again. The familiar paths have shifted — or maybe you never knew them at all. Every direction looks the same: dark, tangled, alive.",
-  },
-  {
-    speaker: "???",
-    text: "Hey. Hey! Over here, you little fool.",
-  },
-  {
-    speaker: "",
-    text: "A brighter glow pulses through the undergrowth — your brother, Erryn, pushing through a curtain of hanging moss. His light burns steadier than yours, sharper. He always did burn brighter.",
-  },
-  {
-    speaker: "Erryn",
-    text: "I told you to stay close. Do you have any idea how deep we've wandered? This part of the woods... things live here that don't like our kind.",
-  },
-  {
-    speaker: "{player}",
-    text: "I didn't mean to drift off. Something was calling to me — a sound, like singing, but...",
-  },
-  {
-    speaker: "Erryn",
-    text: "Stop. Don't follow sounds you can't name. That's the first rule, and you know it.",
-  },
-  {
-    speaker: "",
-    text: "He hovers closer, his glow wrapping around yours like a protective shell. For a moment, the darkness pulls back.",
-  },
-  {
-    speaker: "Erryn",
-    text: "Stay behind me. We'll find the trail back. And this time — don't. Wander. Off.",
-  },
-  {
-    speaker: "{player}",
-    text: "...Okay. I'm sorry, Erryn.",
-  },
-  {
-    speaker: "Erryn",
-    text: "Don't be sorry. Be careful. Now come on — before the forest notices us.",
-  },
+  { speaker: "", textKey: "wispDialog1" },
+  { speaker: "", textKey: "wispDialog2" },
+  { speaker: "???", textKey: "wispDialog3" },
+  { speaker: "", textKey: "wispDialog4" },
+  { speaker: "Erryn", textKey: "wispDialog5" },
+  { speaker: "{player}", textKey: "wispDialog6" },
+  { speaker: "Erryn", textKey: "wispDialog7" },
+  { speaker: "", textKey: "wispDialog8" },
+  { speaker: "Erryn", textKey: "wispDialog9" },
+  { speaker: "{player}", textKey: "wispDialog10" },
+  { speaker: "Erryn", textKey: "wispDialog11" },
 ];
 
-const TYPEWRITER_SPEED = 30; // ms per character
+const TYPEWRITER_SPEED = 30;
 
 const VisualNovel = ({ playerName }: VisualNovelProps) => {
+  const { t } = useLanguage();
   const [currentLine, setCurrentLine] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isComplete, setIsComplete] = useState(false);
@@ -69,7 +39,7 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
   const line = dialog[currentLine];
 
   // Replace {player} with actual name
-  const fullText = line?.text.replace("{player}", playerName) || "";
+  const fullText = line ? t(line.textKey).replace("{player}", playerName) : "";
   const speaker = line?.speaker.replace("{player}", playerName) || "";
 
   // Fade in scene
