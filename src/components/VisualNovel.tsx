@@ -1,11 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import forestBackground from "@/assets/forest-background.jpg";
+import wispSprite from "@/assets/wisp-sprite.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { TranslationKey } from "@/lib/translations";
 
 interface DialogLine {
   speaker: string;
   textKey: TranslationKey;
+  /** Which sprite(s) to show: "player" | "erryn" | "both" | "none" */
+  showSprite?: "player" | "erryn" | "both" | "none";
 }
 
 interface VisualNovelProps {
@@ -13,17 +16,17 @@ interface VisualNovelProps {
 }
 
 const wispDialog: DialogLine[] = [
-  { speaker: "", textKey: "wispDialog1" },
-  { speaker: "", textKey: "wispDialog2" },
-  { speaker: "???", textKey: "wispDialog3" },
-  { speaker: "", textKey: "wispDialog4" },
-  { speaker: "Erryn", textKey: "wispDialog5" },
-  { speaker: "{player}", textKey: "wispDialog6" },
-  { speaker: "Erryn", textKey: "wispDialog7" },
-  { speaker: "", textKey: "wispDialog8" },
-  { speaker: "Erryn", textKey: "wispDialog9" },
-  { speaker: "{player}", textKey: "wispDialog10" },
-  { speaker: "Erryn", textKey: "wispDialog11" },
+  { speaker: "", textKey: "wispDialog1", showSprite: "none" },
+  { speaker: "", textKey: "wispDialog2", showSprite: "none" },
+  { speaker: "???", textKey: "wispDialog3", showSprite: "erryn" },
+  { speaker: "", textKey: "wispDialog4", showSprite: "both" },
+  { speaker: "Erryn", textKey: "wispDialog5", showSprite: "erryn" },
+  { speaker: "{player}", textKey: "wispDialog6", showSprite: "player" },
+  { speaker: "Erryn", textKey: "wispDialog7", showSprite: "erryn" },
+  { speaker: "", textKey: "wispDialog8", showSprite: "both" },
+  { speaker: "Erryn", textKey: "wispDialog9", showSprite: "erryn" },
+  { speaker: "{player}", textKey: "wispDialog10", showSprite: "player" },
+  { speaker: "Erryn", textKey: "wispDialog11", showSprite: "erryn" },
 ];
 
 const TYPEWRITER_SPEED = 30;
@@ -38,9 +41,12 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
   const dialog = wispDialog;
   const line = dialog[currentLine];
 
-  // Replace {player} with actual name
   const fullText = line ? t(line.textKey).replace("{player}", playerName) : "";
   const speaker = line?.speaker.replace("{player}", playerName) || "";
+  const showSprite = line?.showSprite || "none";
+
+  // Who is actively speaking (for animation)
+  const activeSpeaker = line?.speaker === "{player}" ? "player" : line?.speaker === "Erryn" || line?.speaker === "???" ? "erryn" : "none";
 
   // Fade in scene
   useEffect(() => {
@@ -70,11 +76,9 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
 
   const handleClick = useCallback(() => {
     if (!isComplete) {
-      // Complete current text immediately
       setDisplayedText(fullText);
       setIsComplete(true);
     } else {
-      // Advance to next line
       if (currentLine < dialog.length - 1) {
         setCurrentLine((prev) => prev + 1);
       }
@@ -85,6 +89,11 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
 
   const isNarration = speaker === "";
   const isLastLine = currentLine >= dialog.length - 1 && isComplete;
+
+  const showPlayer = showSprite === "player" || showSprite === "both";
+  const showErryn = showSprite === "erryn" || showSprite === "both";
+
+  const isTalking = !isComplete;
 
   return (
     <div
@@ -101,6 +110,44 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
 
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+
+      {/* Character sprites */}
+      {/* Erryn sprite - left side */}
+      <div
+        className={`absolute bottom-[160px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${
+          showErryn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <img
+          src={wispSprite}
+          alt="Erryn"
+          className={`h-48 md:h-72 w-auto drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] ${
+            isTalking && activeSpeaker === "erryn"
+              ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]"
+              : ""
+          }`}
+          style={{
+            filter: "hue-rotate(30deg) brightness(1.2)",
+          }}
+        />
+      </div>
+
+      {/* Player sprite - right side */}
+      <div
+        className={`absolute bottom-[160px] right-[5%] md:right-[10%] z-[5] transition-all duration-500 ${
+          showPlayer ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <img
+          src={wispSprite}
+          alt="Player wisp"
+          className={`h-36 md:h-56 w-auto drop-shadow-[0_0_20px_rgba(56,189,248,0.5)] ${
+            isTalking && activeSpeaker === "player"
+              ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]"
+              : ""
+          }`}
+        />
+      </div>
 
       {/* Click indicator */}
       {isComplete && !isLastLine && (
