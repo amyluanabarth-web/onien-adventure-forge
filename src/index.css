@@ -162,3 +162,18 @@
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
 }
+
+@keyframes sprite-talk {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-4px) scale(1.03);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.01);
+  }
+  75% {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
