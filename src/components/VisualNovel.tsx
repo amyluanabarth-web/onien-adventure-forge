@@ -3,14 +3,18 @@ import forestBackground from "@/assets/forest-background.jpg";
 import carriageBackground from "@/assets/carriage-wreck-background.jpg";
 import battlefieldBackground from "@/assets/battlefield-background.jpg";
 import wispSprite from "@/assets/wisp-sprite.png";
+import errynSprite from "@/assets/erryn-sprite.png";
+import errynCaughtSprite from "@/assets/erryn-caught-sprite.png";
 import knightSprite from "@/assets/knight-sprite.png";
+import aldricSprite from "@/assets/aldric-sprite.png";
+import mageSprite from "@/assets/mage-sprite.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { TranslationKey } from "@/lib/translations";
 
 interface DialogLine {
   speaker: string;
   textKey: TranslationKey;
-  showSprite?: "player" | "erryn" | "both" | "none" | "knight" | "mage" | "knight-mage" | "oldman";
+  showSprite?: "player" | "erryn" | "both" | "none" | "knight" | "mage" | "knight-mage" | "oldman" | "erryn-caught" | "erryn-caught-player";
 }
 
 interface ChoiceOption {
@@ -77,8 +81,11 @@ const dialogs: Partial<Record<StoryPhase, DialogLine[]>> = {
     { speaker: "", textKey: "helpDialog6", showSprite: "oldman" },
     { speaker: "Aldric", textKey: "helpDialog7", showSprite: "oldman" },
     { speaker: "Erryn", textKey: "helpDialog8", showSprite: "erryn" },
-    { speaker: "", textKey: "helpDialog9", showSprite: "both" },
-    { speaker: "", textKey: "helpDialog10", showSprite: "player" },
+    { speaker: "", textKey: "helpDialog9", showSprite: "erryn-caught" },
+    { speaker: "", textKey: "helpDialog10", showSprite: "erryn-caught-player" },
+    { speaker: "Erryn", textKey: "helpDialog11", showSprite: "erryn-caught" },
+    { speaker: "{player}", textKey: "helpDialog12", showSprite: "erryn-caught-player" },
+    { speaker: "Erryn", textKey: "helpDialog13", showSprite: "erryn-caught" },
   ],
   leaveAldric: [
     { speaker: "", textKey: "leaveDialog1", showSprite: "both" },
@@ -274,11 +281,12 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
   const isNarration = speaker === "";
   const isLastLine = currentLine >= dialog.length - 1 && isComplete && !phaseEndsWithChoice[phase];
 
-  const showPlayer = showSprite === "player" || showSprite === "both";
+  const showPlayer = showSprite === "player" || showSprite === "both" || showSprite === "erryn-caught-player";
   const showErryn = showSprite === "erryn" || showSprite === "both";
   const showKnight = showSprite === "knight" || showSprite === "knight-mage";
   const showMage = showSprite === "mage" || showSprite === "knight-mage";
   const showOldman = showSprite === "oldman";
+  const showErrynCaught = showSprite === "erryn-caught" || showSprite === "erryn-caught-player";
   const isTalking = !isComplete;
 
   return (
@@ -296,7 +304,7 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
 
       {/* Erryn sprite - left */}
       <div className={`absolute bottom-[160px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${showErryn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={wispSprite} alt="Erryn" className={`h-48 md:h-72 w-auto drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} style={{ filter: "hue-rotate(30deg) brightness(1.2)" }} />
+        <img src={errynSprite} alt="Erryn" className={`h-48 md:h-72 w-auto drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
       {/* Player sprite - right */}
@@ -311,15 +319,18 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
 
       {/* Mage sprite - right */}
       <div className={`absolute bottom-[160px] right-[5%] md:right-[8%] z-[5] transition-all duration-500 ${showMage ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={knightSprite} alt="Mage" className={`h-52 md:h-76 w-auto drop-shadow-[0_0_20px_rgba(160,100,220,0.6)] ${isTalking && activeSpeaker === "mage" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} style={{ filter: "hue-rotate(200deg) brightness(1.1)" }} />
+        <img src={mageSprite} alt="Mage" className={`h-52 md:h-76 w-auto drop-shadow-[0_0_20px_rgba(160,100,220,0.6)] ${isTalking && activeSpeaker === "mage" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
       {/* Old man sprite - left */}
       <div className={`absolute bottom-[160px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${showOldman ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={knightSprite} alt="Aldric" className={`h-48 md:h-68 w-auto drop-shadow-[0_0_15px_rgba(180,160,120,0.5)] ${isTalking && activeSpeaker === "oldman" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} style={{ filter: "sepia(0.6) brightness(0.8) hue-rotate(-10deg)" }} />
+        <img src={aldricSprite} alt="Aldric" className={`h-48 md:h-68 w-auto drop-shadow-[0_0_15px_rgba(180,160,120,0.5)] ${isTalking && activeSpeaker === "oldman" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
-      {/* Choice screen */}
+      {/* Erryn caught sprite - center */}
+      <div className={`absolute bottom-[160px] left-1/2 -translate-x-1/2 z-[5] transition-all duration-500 ${showErrynCaught ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <img src={errynCaughtSprite} alt="Erryn trapped" className={`h-48 md:h-72 w-auto drop-shadow-[0_0_30px_rgba(56,189,248,0.7)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : "animate-pulse"}`} />
+      </div>
       {isChoicePhase && choice && (
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-4">
           <p className="text-xl md:text-2xl font-display text-primary text-glow text-center mb-4">
