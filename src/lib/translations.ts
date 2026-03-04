@@ -55,6 +55,31 @@ export const translations = {
     characterChosen: "chosen!",
     adventureBegins: "Your adventure begins soon...",
 
+    // Pocket Menu
+    pocketMenu: "Menu",
+    backToMenu: "Back to Menu",
+    openMap: "Map",
+    saveGame: "Save Game",
+    openSettings: "Settings",
+    mapComingSoon: "The world map will be available soon.",
+
+    // Save System
+    saveSlots: "Save Slots",
+    emptySlot: "Empty Slot",
+    saveHere: "Save Here",
+    deleteSave: "Delete",
+    savedSuccessfully: "Game saved!",
+    saveDeleted: "Save deleted.",
+    chapter: "Chapter",
+    chapterIntro: "The Awakening",
+    chapterPathA: "The Rundown Road",
+    chapterPathB: "Sounds in the Dark",
+    chapterHelpAldric: "The Hunter's Trap",
+    chapterLeaveAldric: "Narrow Escape",
+    chapterIntervene: "A Fragile Truce",
+    chapterFlee: "Flight Through Fire",
+    close: "Close",
+
     // Story Intros
     knightStoryIntro: "The fortress of Vael'Khar crumbles at the edge of the world. You stand before its shattered gates — the last knight of a forgotten order. Your blade hums with an oath sworn to a dead king. Beyond the threshold, something ancient stirs... and it remembers your name.",
     mageStoryIntro: "The Obsidian Library has been sealed for three hundred years. Tonight, the wards have failed. You feel the forbidden knowledge calling from within — whispers that taste of starlight and ash. Your hands tremble not from fear, but from hunger. The first page turns itself.",
@@ -230,6 +255,31 @@ export const translations = {
     exitDesc: "Das Spiel läuft im Browser und kann nicht direkt geschlossen werden.",
     characterChosen: "gewählt!",
     adventureBegins: "Dein Abenteuer beginnt bald...",
+
+    // Pocket Menu
+    pocketMenu: "Menü",
+    backToMenu: "Zurück zum Menü",
+    openMap: "Karte",
+    saveGame: "Speichern",
+    openSettings: "Einstellungen",
+    mapComingSoon: "Die Weltkarte wird bald verfügbar sein.",
+
+    // Save System
+    saveSlots: "Speicherplätze",
+    emptySlot: "Leerer Platz",
+    saveHere: "Hier speichern",
+    deleteSave: "Löschen",
+    savedSuccessfully: "Spiel gespeichert!",
+    saveDeleted: "Spielstand gelöscht.",
+    chapter: "Kapitel",
+    chapterIntro: "Das Erwachen",
+    chapterPathA: "Der verfallene Weg",
+    chapterPathB: "Geräusche im Dunkel",
+    chapterHelpAldric: "Die Falle des Jägers",
+    chapterLeaveAldric: "Knappe Flucht",
+    chapterIntervene: "Ein zerbrechlicher Waffenstillstand",
+    chapterFlee: "Flucht durch das Feuer",
+    close: "Schließen",
 
     // Story Intros
     knightStoryIntro: "Die Festung von Vael'Khar zerbröckelt am Rand der Welt. Du stehst vor ihren zerschmetterten Toren — der letzte Ritter eines vergessenen Ordens. Deine Klinge summt mit einem Eid, geschworen einem toten König. Jenseits der Schwelle regt sich etwas Uraltes... und es erinnert sich an deinen Namen.",
