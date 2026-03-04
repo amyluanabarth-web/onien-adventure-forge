@@ -128,6 +128,9 @@ export const translations = {
     helpDialog8: "{player}! FLY! NOW!",
     helpDialog9: "The binding circle flares to life around you. Erryn slams his light against yours, pushing you out of the circle's edge — but he's caught inside. His glow flickers, dimming rapidly.",
     helpDialog10: "Your brother's light pulses weakly inside the trap. Aldric laughs, pulling the iron chains tight. You hover just beyond reach, terrified — but not helpless. Not yet.",
+    helpDialog11: "I'm... I'm still here, {player}. It's cold. The runes... they're draining me. I can feel my light fading.",
+    helpDialog12: "Hold on, Erryn! I won't leave you! I'll find a way to break you out!",
+    helpDialog13: "Don't... don't be stupid. He's watching. Be smart, little brother. Be smarter than me.",
 
     // Path A2 choice - Save Erryn
     errynChoicePrompt: "Erryn is trapped! What do you do?",
@@ -301,6 +304,9 @@ export const translations = {
     helpDialog8: "{player}! FLIEG! JETZT!",
     helpDialog9: "Der Bindungskreis flammt um euch auf. Erryn schleudert sein Licht gegen deines und stößt dich aus dem Rand des Kreises — aber er ist gefangen. Sein Leuchten flackert und wird schnell schwächer.",
     helpDialog10: "Das Licht deines Bruders pulsiert schwach in der Falle. Aldric lacht und zieht die Eisenketten straff. Du schwebst knapp außer Reichweite, verängstigt — aber nicht hilflos. Noch nicht.",
+    helpDialog11: "Ich bin... ich bin noch hier, {player}. Es ist kalt. Die Runen... sie saugen mich aus. Ich spüre wie mein Licht verblasst.",
+    helpDialog12: "Halt durch, Erryn! Ich werde dich nicht verlassen! Ich finde einen Weg, dich rauszuholen!",
+    helpDialog13: "Sei... sei nicht dumm. Er beobachtet uns. Sei klug, kleiner Bruder. Klüger als ich.",
 
     // Path A2 choice
     errynChoicePrompt: "Erryn ist gefangen! Was tust du?",
