@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
+import { Menu, X, ArrowLeft, Map, Save, Settings, Trash2 } from "lucide-react";
 import forestBackground from "@/assets/forest-background.jpg";
 import carriageBackground from "@/assets/carriage-wreck-background.jpg";
 import battlefieldBackground from "@/assets/battlefield-background.jpg";
@@ -28,8 +30,19 @@ interface ChoiceScreen {
   options: ChoiceOption[];
 }
 
+interface SaveSlot {
+  id: number;
+  phase: StoryPhase;
+  currentLine: number;
+  playerName: string;
+  timestamp: number;
+  backgroundKey: string;
+}
+
 interface VisualNovelProps {
   playerName: string;
+  onBackToMenu: () => void;
+  onOpenSettings: () => void;
 }
 
 type StoryPhase =
@@ -169,7 +182,6 @@ const choices: Partial<Record<StoryPhase, ChoiceScreen>> = {
   },
 };
 
-// Which choice screen follows each dialog phase
 const phaseEndsWithChoice: Partial<Record<StoryPhase, StoryPhase>> = {
   intro: "choice1",
   pathA: "choiceA2",
@@ -177,7 +189,6 @@ const phaseEndsWithChoice: Partial<Record<StoryPhase, StoryPhase>> = {
   pathB: "choiceB2",
 };
 
-// Background per phase
 const phaseBackgrounds: Record<string, string> = {
   intro: forestBackground,
   choice1: forestBackground,
@@ -192,9 +203,58 @@ const phaseBackgrounds: Record<string, string> = {
   flee: battlefieldBackground,
 };
 
-const TYPEWRITER_SPEED = 30;
+const phaseBackgroundKeys: Record<string, string> = {
+  intro: "forest",
+  choice1: "forest",
+  pathA: "carriage",
+  choiceA2: "carriage",
+  helpAldric: "carriage",
+  choiceA3: "carriage",
+  leaveAldric: "carriage",
+  pathB: "battlefield",
+  choiceB2: "battlefield",
+  intervene: "battlefield",
+  flee: "battlefield",
+};
 
-const VisualNovel = ({ playerName }: VisualNovelProps) => {
+const backgroundFromKey: Record<string, string> = {
+  forest: forestBackground,
+  carriage: carriageBackground,
+  battlefield: battlefieldBackground,
+};
+
+const phaseChapterKeys: Record<string, TranslationKey> = {
+  intro: "chapterIntro",
+  choice1: "chapterIntro",
+  pathA: "chapterPathA",
+  choiceA2: "chapterPathA",
+  helpAldric: "chapterHelpAldric",
+  choiceA3: "chapterHelpAldric",
+  leaveAldric: "chapterLeaveAldric",
+  pathB: "chapterPathB",
+  choiceB2: "chapterPathB",
+  intervene: "chapterIntervene",
+  flee: "chapterFlee",
+};
+
+const TYPEWRITER_SPEED = 30;
+const SAVE_KEY = "aeonien_saves";
+const MAX_SAVES = 6;
+
+function loadSaves(): SaveSlot[] {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function persistSaves(saves: SaveSlot[]) {
+  localStorage.setItem(SAVE_KEY, JSON.stringify(saves));
+}
+
+const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings }: VisualNovelProps) => {
   const { t } = useLanguage();
   const [phase, setPhase] = useState<StoryPhase>("intro");
   const [currentLine, setCurrentLine] = useState(0);
@@ -203,6 +263,12 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
   const [showScene, setShowScene] = useState(false);
   const [choiceHover, setChoiceHover] = useState<number | null>(null);
   const [bgTransition, setBgTransition] = useState(false);
+
+  // Pocket menu state
+  const [pocketOpen, setPocketOpen] = useState(false);
+  const [savesOpen, setSavesOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
+  const [saves, setSaves] = useState<SaveSlot[]>(loadSaves);
 
   const isChoicePhase = !!choices[phase];
   const dialog = dialogs[phase] || [];
@@ -226,7 +292,6 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Background transition effect
   useEffect(() => {
     setBgTransition(true);
     const timer = setTimeout(() => setBgTransition(false), 600);
@@ -253,7 +318,7 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
   }, [currentLine, fullText, isChoicePhase]);
 
   const handleClick = useCallback(() => {
-    if (isChoicePhase) return;
+    if (isChoicePhase || pocketOpen || savesOpen || mapOpen) return;
     if (!isComplete) {
       setDisplayedText(fullText);
       setIsComplete(true);
@@ -267,7 +332,7 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
         }
       }
     }
-  }, [isComplete, fullText, currentLine, dialog.length, phase, isChoicePhase]);
+  }, [isComplete, fullText, currentLine, dialog.length, phase, isChoicePhase, pocketOpen, savesOpen, mapOpen]);
 
   const handleChoice = (targetPhase: StoryPhase) => {
     setPhase(targetPhase);
@@ -276,7 +341,33 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
     setIsComplete(false);
   };
 
-  if (!isChoicePhase && !line) return null;
+  const handleSaveToSlot = (slotId: number) => {
+    const newSave: SaveSlot = {
+      id: slotId,
+      phase,
+      currentLine,
+      playerName,
+      timestamp: Date.now(),
+      backgroundKey: phaseBackgroundKeys[phase] || "forest",
+    };
+    const updated = saves.filter((s) => s.id !== slotId);
+    updated.push(newSave);
+    updated.sort((a, b) => a.id - b.id);
+    setSaves(updated);
+    persistSaves(updated);
+    toast(t("savedSuccessfully"));
+  };
+
+  const handleDeleteSave = (slotId: number) => {
+    const updated = saves.filter((s) => s.id !== slotId);
+    setSaves(updated);
+    persistSaves(updated);
+    toast(t("saveDeleted"));
+  };
+
+  const anyOverlayOpen = pocketOpen || savesOpen || mapOpen;
+
+  if (!isChoicePhase && !line && !anyOverlayOpen) return null;
 
   const isNarration = speaker === "";
   const isLastLine = currentLine >= dialog.length - 1 && isComplete && !phaseEndsWithChoice[phase];
@@ -288,6 +379,12 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
   const showOldman = showSprite === "oldman";
   const showErrynCaught = showSprite === "erryn-caught" || showSprite === "erryn-caught-player";
   const isTalking = !isComplete;
+
+  const formatDate = (ts: number) => {
+    const d = new Date(ts);
+    return d.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit", year: "numeric" }) +
+      " " + d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  };
 
   return (
     <div
@@ -301,6 +398,161 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${bgTransition ? "opacity-80" : "opacity-100"}`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+
+      {/* Pocket Menu Button - Top Left */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setPocketOpen(!pocketOpen);
+          setSavesOpen(false);
+          setMapOpen(false);
+        }}
+        className="absolute top-4 left-4 z-30 p-2 bg-background/60 backdrop-blur-md border border-primary/30 rounded-lg hover:bg-primary/20 hover:border-primary/60 transition-all duration-300 group"
+      >
+        {pocketOpen ? (
+          <X className="w-6 h-6 text-primary" />
+        ) : (
+          <Menu className="w-6 h-6 text-primary group-hover:text-primary" />
+        )}
+      </button>
+
+      {/* Pocket Menu Dropdown */}
+      {pocketOpen && (
+        <div
+          className="absolute top-16 left-4 z-30 w-56 bg-background/90 backdrop-blur-xl border border-primary/30 rounded-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => { setPocketOpen(false); onBackToMenu(); }}
+            className="w-full flex items-center gap-3 px-4 py-3 text-left text-foreground hover:bg-primary/15 transition-colors border-b border-primary/10"
+          >
+            <ArrowLeft className="w-4 h-4 text-primary" />
+            <span className="font-display text-sm tracking-wide">{t("backToMenu")}</span>
+          </button>
+          <button
+            onClick={() => { setPocketOpen(false); setMapOpen(true); }}
+            className="w-full flex items-center gap-3 px-4 py-3 text-left text-foreground hover:bg-primary/15 transition-colors border-b border-primary/10"
+          >
+            <Map className="w-4 h-4 text-primary" />
+            <span className="font-display text-sm tracking-wide">{t("openMap")}</span>
+          </button>
+          <button
+            onClick={() => { setPocketOpen(false); setSavesOpen(true); }}
+            className="w-full flex items-center gap-3 px-4 py-3 text-left text-foreground hover:bg-primary/15 transition-colors border-b border-primary/10"
+          >
+            <Save className="w-4 h-4 text-primary" />
+            <span className="font-display text-sm tracking-wide">{t("saveGame")}</span>
+          </button>
+          <button
+            onClick={() => { setPocketOpen(false); onOpenSettings(); }}
+            className="w-full flex items-center gap-3 px-4 py-3 text-left text-foreground hover:bg-primary/15 transition-colors"
+          >
+            <Settings className="w-4 h-4 text-primary" />
+            <span className="font-display text-sm tracking-wide">{t("openSettings")}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Map Overlay (placeholder) */}
+      {mapOpen && (
+        <div
+          className="absolute inset-0 z-30 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="bg-background/95 backdrop-blur-xl border border-primary/30 rounded-lg p-8 max-w-md w-full mx-4 text-center">
+            <Map className="w-12 h-12 text-primary/50 mx-auto mb-4" />
+            <h2 className="text-xl font-display text-primary mb-2">{t("openMap")}</h2>
+            <p className="text-muted-foreground mb-6">{t("mapComingSoon")}</p>
+            <button
+              onClick={() => setMapOpen(false)}
+              className="px-6 py-2 bg-primary/20 border border-primary/40 text-primary font-display text-sm tracking-wider hover:bg-primary/30 transition-colors"
+            >
+              {t("close")}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Save Overlay */}
+      {savesOpen && (
+        <div
+          className="absolute inset-0 z-30 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="bg-background/95 backdrop-blur-xl border border-primary/30 rounded-lg p-6 max-w-2xl w-full mx-4">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-display text-primary tracking-wider">{t("saveSlots")}</h2>
+              <button
+                onClick={() => setSavesOpen(false)}
+                className="p-1 hover:bg-primary/20 rounded transition-colors"
+              >
+                <X className="w-5 h-5 text-primary" />
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-1">
+              {Array.from({ length: MAX_SAVES }, (_, i) => {
+                const slot = saves.find((s) => s.id === i);
+                const bgImg = slot ? backgroundFromKey[slot.backgroundKey] || forestBackground : null;
+                const chapterKey = slot ? phaseChapterKeys[slot.phase] : null;
+
+                return (
+                  <div
+                    key={i}
+                    className="relative border border-primary/20 rounded-lg overflow-hidden bg-background/50 hover:border-primary/40 transition-colors"
+                  >
+                    {slot && bgImg ? (
+                      <>
+                        {/* Save card with image */}
+                        <div className="relative h-28 overflow-hidden">
+                          <img src={bgImg} alt="" className="w-full h-full object-cover opacity-60" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
+                          <div className="absolute bottom-2 left-3 right-3">
+                            <p className="text-xs text-primary/70 font-display tracking-wider">
+                              {t("chapter")}
+                            </p>
+                            <p className="text-sm font-display text-foreground truncate">
+                              {chapterKey ? t(chapterKey) : slot.phase}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="p-3 flex items-center justify-between">
+                          <div>
+                            <p className="text-xs text-muted-foreground">{formatDate(slot.timestamp)}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">{slot.playerName}</p>
+                          </div>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleSaveToSlot(i)}
+                              className="px-3 py-1.5 text-xs font-display bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 transition-colors rounded"
+                            >
+                              {t("saveHere")}
+                            </button>
+                            <button
+                              onClick={() => handleDeleteSave(i)}
+                              className="p-1.5 text-destructive/70 hover:text-destructive hover:bg-destructive/10 transition-colors rounded"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      /* Empty slot */
+                      <button
+                        onClick={() => handleSaveToSlot(i)}
+                        className="w-full h-40 flex flex-col items-center justify-center gap-2 text-muted-foreground hover:text-primary/70 transition-colors"
+                      >
+                        <Save className="w-6 h-6 opacity-40" />
+                        <span className="text-sm font-display tracking-wide">{t("emptySlot")}</span>
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Erryn sprite - left */}
       <div className={`absolute bottom-[160px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${showErryn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -331,6 +583,8 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
       <div className={`absolute bottom-[160px] left-1/2 -translate-x-1/2 z-[5] transition-all duration-500 ${showErrynCaught ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
         <img src={errynCaughtSprite} alt="Erryn trapped" className={`h-48 md:h-72 w-auto drop-shadow-[0_0_30px_rgba(56,189,248,0.7)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : "animate-pulse"}`} />
       </div>
+
+      {/* Choice screen */}
       {isChoicePhase && choice && (
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-4">
           <p className="text-xl md:text-2xl font-display text-primary text-glow text-center mb-4">
@@ -356,14 +610,14 @@ const VisualNovel = ({ playerName }: VisualNovelProps) => {
       )}
 
       {/* Click indicator */}
-      {!isChoicePhase && isComplete && !isLastLine && (
+      {!isChoicePhase && isComplete && !isLastLine && !anyOverlayOpen && (
         <div className="absolute bottom-6 right-8 z-20 animate-pulse">
           <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[10px] border-t-primary/70" />
         </div>
       )}
 
       {/* Textbox */}
-      {!isChoicePhase && (
+      {!isChoicePhase && !anyOverlayOpen && (
         <div className="absolute bottom-0 left-0 right-0 z-10 p-4 md:p-6">
           <div className="max-w-4xl mx-auto">
             {!isNarration && (

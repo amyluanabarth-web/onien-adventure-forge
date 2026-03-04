@@ -32,10 +32,18 @@ const Index = () => {
   };
 
   const handleExit = () => {
+    window.open("about:blank", "_self");
     window.close();
-    toast(t("exitTitle"), {
-      description: t("exitDesc"),
-    });
+  };
+
+  const handleBackToMenu = () => {
+    setCurrentScreen("menu");
+    setSelectedCharacter(null);
+    setPlayerName("");
+  };
+
+  const handleOpenSettings = () => {
+    setCurrentScreen("settings");
   };
 
   const handleSelectCharacter = (character: string) => {
@@ -114,7 +122,11 @@ const Index = () => {
         )}
 
         {currentScreen === "visualNovel" && (
-          <VisualNovel playerName={playerName} />
+          <VisualNovel
+            playerName={playerName}
+            onBackToMenu={handleBackToMenu}
+            onOpenSettings={handleOpenSettings}
+          />
         )}
       </div>
     </main>
