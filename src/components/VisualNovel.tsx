@@ -339,7 +339,28 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
   }, [isComplete, fullText, currentLine, dialog.length, phase, isChoicePhase, pocketOpen, savesOpen, mapOpen]);
 
   const handleChoice = (targetPhase: StoryPhase) => {
+    // Record the choice phase we're leaving so we can return to it
+    setDecisionHistory((prev) => [...prev, phase]);
     setPhase(targetPhase);
+    setCurrentLine(0);
+    setDisplayedText("");
+    setIsComplete(false);
+  };
+
+  const handleLoadSave = (slot: SaveSlot) => {
+    setPhase(slot.phase);
+    setCurrentLine(slot.currentLine);
+    setDisplayedText("");
+    setIsComplete(false);
+    setDecisionHistory([]);
+    setSavesOpen(false);
+  };
+
+  const handleBackToDecision = () => {
+    if (decisionHistory.length === 0) return;
+    const lastDecision = decisionHistory[decisionHistory.length - 1];
+    setDecisionHistory((prev) => prev.slice(0, -1));
+    setPhase(lastDecision);
     setCurrentLine(0);
     setDisplayedText("");
     setIsComplete(false);
