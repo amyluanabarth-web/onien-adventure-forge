@@ -54,7 +54,10 @@ const Index = () => {
     setActiveSave(null);
   };
 
+  const [previousScreen, setPreviousScreen] = useState<Screen>("menu");
+
   const handleOpenSettings = () => {
+    setPreviousScreen(currentScreen);
     setCurrentScreen("settings");
   };
 
@@ -129,7 +132,7 @@ const Index = () => {
         )}
 
         {currentScreen === "settings" && (
-          <Settings onBack={handleBack} />
+          <Settings onBack={() => setCurrentScreen(previousScreen)} />
         )}
 
         {currentScreen === "loadSaves" && (
