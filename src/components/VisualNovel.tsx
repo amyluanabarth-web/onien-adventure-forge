@@ -30,7 +30,7 @@ interface ChoiceScreen {
   options: ChoiceOption[];
 }
 
-interface SaveSlot {
+export interface SaveSlot {
   id: number;
   phase: StoryPhase;
   currentLine: number;
