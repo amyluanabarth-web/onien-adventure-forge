@@ -506,7 +506,7 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
         >
           <div className="bg-background/95 backdrop-blur-xl border border-primary/30 rounded-lg p-6 max-w-2xl w-full mx-4">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-display text-primary tracking-wider">{t("saveSlots")}</h2>
+              <h2 className="text-xl font-display text-primary tracking-wider">{t("saveLoadTitle")}</h2>
               <button
                 onClick={() => setSavesOpen(false)}
                 className="p-1 hover:bg-primary/20 rounded transition-colors"
@@ -546,6 +546,12 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
                             <p className="text-xs text-muted-foreground mt-0.5">{slot.playerName}</p>
                           </div>
                           <div className="flex gap-2">
+                            <button
+                              onClick={() => handleLoadSave(slot)}
+                              className="px-3 py-1.5 text-xs font-display bg-accent/20 border border-accent/30 text-accent-foreground hover:bg-accent/30 transition-colors rounded"
+                            >
+                              {t("loadHere")}
+                            </button>
                             <button
                               onClick={() => handleSaveToSlot(i)}
                               className="px-3 py-1.5 text-xs font-display bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 transition-colors rounded"
