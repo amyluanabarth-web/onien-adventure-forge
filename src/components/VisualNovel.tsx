@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { Menu, X, ArrowLeft, Map, Save, Settings, Trash2, Undo2 } from "lucide-react";
 import forestBackground from "@/assets/forest-background.jpg";
 import carriageBackground from "@/assets/carriage-wreck-background.jpg";
+import worldMap from "@/assets/world-map.png";
 import battlefieldBackground from "@/assets/battlefield-background.jpg";
 import wispSprite from "@/assets/wisp-sprite.png";
 import errynSprite from "@/assets/erryn-sprite.png";
@@ -478,22 +479,24 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
         </div>
       )}
 
-      {/* Map Overlay (placeholder) */}
+      {/* Map Overlay */}
       {mapOpen && (
         <div
-          className="absolute inset-0 z-30 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          className="absolute inset-0 z-30 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="bg-background/95 backdrop-blur-xl border border-primary/30 rounded-lg p-8 max-w-md w-full mx-4 text-center">
-            <Map className="w-12 h-12 text-primary/50 mx-auto mb-4" />
-            <h2 className="text-xl font-display text-primary mb-2">{t("openMap")}</h2>
-            <p className="text-muted-foreground mb-6">{t("mapComingSoon")}</p>
+          <div className="relative max-w-4xl w-full mx-4">
             <button
               onClick={() => setMapOpen(false)}
-              className="px-6 py-2 bg-primary/20 border border-primary/40 text-primary font-display text-sm tracking-wider hover:bg-primary/30 transition-colors"
+              className="absolute -top-10 right-0 p-2 text-primary/70 hover:text-primary transition-colors"
             >
-              {t("close")}
+              <X className="w-6 h-6" />
             </button>
+            <img
+              src={worldMap}
+              alt="Äonien World Map"
+              className="w-full h-auto rounded-lg border border-primary/30 shadow-lg"
+            />
           </div>
         </div>
       )}
