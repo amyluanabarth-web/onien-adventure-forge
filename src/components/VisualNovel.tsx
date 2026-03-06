@@ -43,6 +43,7 @@ interface VisualNovelProps {
   playerName: string;
   onBackToMenu: () => void;
   onOpenSettings: () => void;
+  initialSave?: SaveSlot | null;
 }
 
 type StoryPhase =
