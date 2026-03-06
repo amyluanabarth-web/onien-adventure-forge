@@ -79,6 +79,9 @@ export const translations = {
     chapterIntervene: "A Fragile Truce",
     chapterFlee: "Flight Through Fire",
     close: "Close",
+    loadHere: "Load",
+    backToDecision: "↩ Last Decision",
+    saveLoadTitle: "Save / Load",
 
     // Story Intros
     knightStoryIntro: "The fortress of Vael'Khar crumbles at the edge of the world. You stand before its shattered gates — the last knight of a forgotten order. Your blade hums with an oath sworn to a dead king. Beyond the threshold, something ancient stirs... and it remembers your name.",
@@ -280,6 +283,9 @@ export const translations = {
     chapterIntervene: "Ein zerbrechlicher Waffenstillstand",
     chapterFlee: "Flucht durch das Feuer",
     close: "Schließen",
+    loadHere: "Laden",
+    backToDecision: "↩ Letzte Entscheidung",
+    saveLoadTitle: "Speichern / Laden",
 
     // Story Intros
     knightStoryIntro: "Die Festung von Vael'Khar zerbröckelt am Rand der Welt. Du stehst vor ihren zerschmetterten Toren — der letzte Ritter eines vergessenen Ordens. Deine Klinge summt mit einem Eid, geschworen einem toten König. Jenseits der Schwelle regt sich etwas Uraltes... und es erinnert sich an deinen Namen.",
