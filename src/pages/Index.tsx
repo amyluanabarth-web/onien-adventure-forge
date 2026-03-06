@@ -4,21 +4,12 @@ import MainMenu from "@/components/MainMenu";
 import CharacterSelect from "@/components/CharacterSelect";
 import CharacterOverview from "@/components/CharacterOverview";
 import StoryIntro from "@/components/StoryIntro";
-import VisualNovel from "@/components/VisualNovel";
+import VisualNovel, { type SaveSlot } from "@/components/VisualNovel";
 import Settings from "@/components/Settings";
 import ParticleBackground from "@/components/ParticleBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type Screen = "menu" | "character" | "characterOverview" | "storyIntro" | "visualNovel" | "settings" | "loadSaves";
-
-interface SaveSlot {
-  id: number;
-  phase: string;
-  currentLine: number;
-  playerName: string;
-  timestamp: number;
-  backgroundKey: string;
-}
 
 const SAVE_KEY = "aeonien_saves";
 
