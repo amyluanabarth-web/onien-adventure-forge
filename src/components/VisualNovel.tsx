@@ -668,6 +668,18 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
                 {!isComplete && <span className="inline-block w-0.5 h-5 bg-primary/70 ml-0.5 animate-pulse align-text-bottom" />}
               </p>
             </div>
+            {/* Back to last decision button */}
+            {decisionHistory.length > 0 && (
+              <div className="mt-2 flex justify-center">
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleBackToDecision(); }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-display text-muted-foreground hover:text-primary bg-background/60 border border-primary/15 hover:border-primary/40 rounded backdrop-blur-sm transition-all duration-200"
+                >
+                  <Undo2 className="w-3.5 h-3.5" />
+                  {t("backToDecision")}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
