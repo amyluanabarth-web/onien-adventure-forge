@@ -255,15 +255,18 @@ function persistSaves(saves: SaveSlot[]) {
   localStorage.setItem(SAVE_KEY, JSON.stringify(saves));
 }
 
-const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings }: VisualNovelProps) => {
+const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: VisualNovelProps) => {
   const { t } = useLanguage();
-  const [phase, setPhase] = useState<StoryPhase>("intro");
-  const [currentLine, setCurrentLine] = useState(0);
+  const [phase, setPhase] = useState<StoryPhase>(initialSave?.phase || "intro");
+  const [currentLine, setCurrentLine] = useState(initialSave?.currentLine || 0);
   const [displayedText, setDisplayedText] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [showScene, setShowScene] = useState(false);
   const [choiceHover, setChoiceHover] = useState<number | null>(null);
   const [bgTransition, setBgTransition] = useState(false);
+
+  // Decision history for "back to last decision"
+  const [decisionHistory, setDecisionHistory] = useState<StoryPhase[]>([]);
 
   // Pocket menu state
   const [pocketOpen, setPocketOpen] = useState(false);
