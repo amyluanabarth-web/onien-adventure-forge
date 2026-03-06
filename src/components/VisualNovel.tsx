@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
-import { Menu, X, ArrowLeft, Map, Save, Settings, Trash2 } from "lucide-react";
+import { Menu, X, ArrowLeft, Map, Save, Settings, Trash2, Undo2 } from "lucide-react";
 import forestBackground from "@/assets/forest-background.jpg";
 import carriageBackground from "@/assets/carriage-wreck-background.jpg";
 import battlefieldBackground from "@/assets/battlefield-background.jpg";
