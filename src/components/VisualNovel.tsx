@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
-import { Menu, X, ArrowLeft, Map, Save, Settings, Trash2 } from "lucide-react";
+import { Menu, X, ArrowLeft, Map, Save, Settings, Trash2, Undo2 } from "lucide-react";
 import forestBackground from "@/assets/forest-background.jpg";
 import carriageBackground from "@/assets/carriage-wreck-background.jpg";
 import battlefieldBackground from "@/assets/battlefield-background.jpg";
@@ -30,7 +30,7 @@ interface ChoiceScreen {
   options: ChoiceOption[];
 }
 
-interface SaveSlot {
+export interface SaveSlot {
   id: number;
   phase: StoryPhase;
   currentLine: number;
@@ -43,6 +43,7 @@ interface VisualNovelProps {
   playerName: string;
   onBackToMenu: () => void;
   onOpenSettings: () => void;
+  initialSave?: SaveSlot | null;
 }
 
 type StoryPhase =
@@ -254,15 +255,18 @@ function persistSaves(saves: SaveSlot[]) {
   localStorage.setItem(SAVE_KEY, JSON.stringify(saves));
 }
 
-const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings }: VisualNovelProps) => {
+const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: VisualNovelProps) => {
   const { t } = useLanguage();
-  const [phase, setPhase] = useState<StoryPhase>("intro");
-  const [currentLine, setCurrentLine] = useState(0);
+  const [phase, setPhase] = useState<StoryPhase>(initialSave?.phase || "intro");
+  const [currentLine, setCurrentLine] = useState(initialSave?.currentLine || 0);
   const [displayedText, setDisplayedText] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [showScene, setShowScene] = useState(false);
   const [choiceHover, setChoiceHover] = useState<number | null>(null);
   const [bgTransition, setBgTransition] = useState(false);
+
+  // Decision history for "back to last decision"
+  const [decisionHistory, setDecisionHistory] = useState<StoryPhase[]>([]);
 
   // Pocket menu state
   const [pocketOpen, setPocketOpen] = useState(false);
@@ -335,7 +339,28 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings }: VisualNovelPr
   }, [isComplete, fullText, currentLine, dialog.length, phase, isChoicePhase, pocketOpen, savesOpen, mapOpen]);
 
   const handleChoice = (targetPhase: StoryPhase) => {
+    // Record the choice phase we're leaving so we can return to it
+    setDecisionHistory((prev) => [...prev, phase]);
     setPhase(targetPhase);
+    setCurrentLine(0);
+    setDisplayedText("");
+    setIsComplete(false);
+  };
+
+  const handleLoadSave = (slot: SaveSlot) => {
+    setPhase(slot.phase);
+    setCurrentLine(slot.currentLine);
+    setDisplayedText("");
+    setIsComplete(false);
+    setDecisionHistory([]);
+    setSavesOpen(false);
+  };
+
+  const handleBackToDecision = () => {
+    if (decisionHistory.length === 0) return;
+    const lastDecision = decisionHistory[decisionHistory.length - 1];
+    setDecisionHistory((prev) => prev.slice(0, -1));
+    setPhase(lastDecision);
     setCurrentLine(0);
     setDisplayedText("");
     setIsComplete(false);
@@ -481,7 +506,7 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings }: VisualNovelPr
         >
           <div className="bg-background/95 backdrop-blur-xl border border-primary/30 rounded-lg p-6 max-w-2xl w-full mx-4">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-display text-primary tracking-wider">{t("saveSlots")}</h2>
+              <h2 className="text-xl font-display text-primary tracking-wider">{t("saveLoadTitle")}</h2>
               <button
                 onClick={() => setSavesOpen(false)}
                 className="p-1 hover:bg-primary/20 rounded transition-colors"
@@ -521,6 +546,12 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings }: VisualNovelPr
                             <p className="text-xs text-muted-foreground mt-0.5">{slot.playerName}</p>
                           </div>
                           <div className="flex gap-2">
+                            <button
+                              onClick={() => handleLoadSave(slot)}
+                              className="px-3 py-1.5 text-xs font-display bg-accent/20 border border-accent/30 text-accent-foreground hover:bg-accent/30 transition-colors rounded"
+                            >
+                              {t("loadHere")}
+                            </button>
                             <button
                               onClick={() => handleSaveToSlot(i)}
                               className="px-3 py-1.5 text-xs font-display bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 transition-colors rounded"
@@ -637,6 +668,18 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings }: VisualNovelPr
                 {!isComplete && <span className="inline-block w-0.5 h-5 bg-primary/70 ml-0.5 animate-pulse align-text-bottom" />}
               </p>
             </div>
+            {/* Back to last decision button */}
+            {decisionHistory.length > 0 && (
+              <div className="mt-2 flex justify-center">
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleBackToDecision(); }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-display text-muted-foreground hover:text-primary bg-background/60 border border-primary/15 hover:border-primary/40 rounded backdrop-blur-sm transition-all duration-200"
+                >
+                  <Undo2 className="w-3.5 h-3.5" />
+                  {t("backToDecision")}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
