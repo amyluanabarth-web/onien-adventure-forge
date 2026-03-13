@@ -338,6 +338,7 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
       setDisplayedText(fullText);
       setIsComplete(true);
     } else {
+      playTextAdvance();
       if (currentLine < dialog.length - 1) {
         setCurrentLine((prev) => prev + 1);
       } else {
@@ -347,10 +348,11 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
         }
       }
     }
-  }, [isComplete, fullText, currentLine, dialog.length, phase, isChoicePhase, pocketOpen, savesOpen, mapOpen]);
+  }, [isComplete, fullText, currentLine, dialog.length, phase, isChoicePhase, pocketOpen, savesOpen, mapOpen, playTextAdvance]);
 
   const handleChoice = (targetPhase: StoryPhase) => {
-    // Record the choice phase we're leaving so we can return to it
+    playChoice();
+    playTransition();
     setDecisionHistory((prev) => [...prev, phase]);
     setPhase(targetPhase);
     setCurrentLine(0);
