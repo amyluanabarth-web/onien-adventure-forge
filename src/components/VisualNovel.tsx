@@ -588,9 +588,9 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
         </div>
       )}
 
-      {/* Erryn sprite - left (brother wisp, larger than player) */}
+      {/* Erryn sprite - left (brother wisp, 2x size) */}
       <div className={`absolute bottom-[160px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${showErryn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={errynSprite} alt="Erryn" className={`h-64 md:h-[22rem] w-auto drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
+        <img src={errynSprite} alt="Erryn" className={`h-[32rem] md:h-[44rem] w-auto drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
       {/* Player sprite - right (smaller wisp) */}
@@ -598,24 +598,24 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
         <img src={wispSprite} alt="Player wisp" className={`h-48 md:h-72 w-auto drop-shadow-[0_0_20px_rgba(56,189,248,0.5)] ${isTalking && activeSpeaker === "player" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
-      {/* Knight sprite - left */}
+      {/* Knight sprite - left (1/4 bigger) */}
       <div className={`absolute bottom-[160px] left-[5%] md:left-[8%] z-[5] transition-all duration-500 ${showKnight ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={knightSprite} alt="Knight" className={`h-72 md:h-[26rem] w-auto drop-shadow-[0_0_15px_rgba(200,170,100,0.5)] ${isTalking && activeSpeaker === "knight" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
+        <img src={knightSprite} alt="Knight" className={`h-[22rem] md:h-[32rem] w-auto drop-shadow-[0_0_15px_rgba(200,170,100,0.5)] ${isTalking && activeSpeaker === "knight" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
-      {/* Mage sprite - right */}
+      {/* Mage sprite - right (1/3 bigger) */}
       <div className={`absolute bottom-[160px] right-[5%] md:right-[8%] z-[5] transition-all duration-500 ${showMage ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={mageSprite} alt="Mage" className={`h-68 md:h-[24rem] w-auto drop-shadow-[0_0_20px_rgba(160,100,220,0.6)] ${isTalking && activeSpeaker === "mage" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
+        <img src={mageSprite} alt="Mage" className={`h-[22rem] md:h-[32rem] w-auto drop-shadow-[0_0_20px_rgba(160,100,220,0.6)] ${isTalking && activeSpeaker === "mage" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
-      {/* Old man sprite - left */}
+      {/* Aldric sprite - left (wisp hunter, 2x size) */}
       <div className={`absolute bottom-[160px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${showOldman ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={aldricSprite} alt="Aldric" className={`h-56 md:h-[20rem] w-auto drop-shadow-[0_0_15px_rgba(180,160,120,0.5)] ${isTalking && activeSpeaker === "oldman" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
+        <img src={aldricSprite} alt="Aldric" className={`h-[28rem] md:h-[40rem] w-auto drop-shadow-[0_0_15px_rgba(180,160,120,0.5)] ${isTalking && activeSpeaker === "oldman" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
-      {/* Erryn caught sprite - center */}
+      {/* Erryn caught sprite - center (2x size) */}
       <div className={`absolute bottom-[160px] left-1/2 -translate-x-1/2 z-[5] transition-all duration-500 ${showErrynCaught ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={errynCaughtSprite} alt="Erryn trapped" className={`h-64 md:h-[22rem] w-auto drop-shadow-[0_0_30px_rgba(56,189,248,0.7)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : "animate-pulse"}`} />
+        <img src={errynCaughtSprite} alt="Erryn trapped" className={`h-[32rem] md:h-[44rem] w-auto drop-shadow-[0_0_30px_rgba(56,189,248,0.7)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : "animate-pulse"}`} />
       </div>
 
       {/* Choice screen */}
