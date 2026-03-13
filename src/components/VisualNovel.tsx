@@ -12,6 +12,7 @@ import knightSprite from "@/assets/knight-sprite.png";
 import aldricSprite from "@/assets/aldric-sprite.png";
 import mageSprite from "@/assets/mage-sprite.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAudio } from "@/hooks/useAudio";
 import type { TranslationKey } from "@/lib/translations";
 
 interface DialogLine {
