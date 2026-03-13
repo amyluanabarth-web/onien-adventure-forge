@@ -594,9 +594,9 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
         </div>
       )}
 
-      {/* Erryn sprite - left (brother wisp, 2x size) */}
-      <div className={`absolute bottom-[160px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${showErryn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <img src={errynSprite} alt="Erryn" className={`h-[32rem] md:h-[44rem] w-auto drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
+      {/* Erryn sprite - left (brother wisp, 1/4 smaller, shifted down) */}
+      <div className={`absolute bottom-[100px] left-[5%] md:left-[10%] z-[5] transition-all duration-500 ${showErryn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <img src={errynSprite} alt="Erryn" className={`h-[24rem] md:h-[33rem] w-auto drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] ${isTalking && activeSpeaker === "erryn" ? "animate-[sprite-talk_0.4s_ease-in-out_infinite]" : ""}`} />
       </div>
 
       {/* Player sprite - right (smaller wisp) */}
