@@ -1,5 +1,6 @@
 import { MenuButton } from "@/components/ui/menu-button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAudio } from "@/hooks/useAudio";
 
 interface MainMenuProps {
   onNewGame: () => void;
@@ -10,6 +11,9 @@ interface MainMenuProps {
 
 const MainMenu = ({ onNewGame, onLoadGame, onSettings, onExit }: MainMenuProps) => {
   const { t } = useLanguage();
+  const { playClick, playHover } = useAudio(true);
+
+  const withClick = (fn: () => void) => () => { playClick(); fn(); };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 animate-fade-in">
@@ -23,16 +27,16 @@ const MainMenu = ({ onNewGame, onLoadGame, onSettings, onExit }: MainMenuProps) 
 
       {/* Menu buttons */}
       <nav className="flex flex-col gap-4 w-full max-w-xs" aria-label="Main Menu">
-        <MenuButton onClick={onNewGame}>
+        <MenuButton onClick={withClick(onNewGame)} onMouseEnter={playHover}>
           {t("newGame")}
         </MenuButton>
-        <MenuButton onClick={onLoadGame}>
+        <MenuButton onClick={withClick(onLoadGame)} onMouseEnter={playHover}>
           {t("saves")}
         </MenuButton>
-        <MenuButton onClick={onSettings}>
+        <MenuButton onClick={withClick(onSettings)} onMouseEnter={playHover}>
           {t("settings")}
         </MenuButton>
-        <MenuButton onClick={onExit} variant="secondary">
+        <MenuButton onClick={withClick(onExit)} onMouseEnter={playHover} variant="secondary">
           {t("exit")}
         </MenuButton>
       </nav>
