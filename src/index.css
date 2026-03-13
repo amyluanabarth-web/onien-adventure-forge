@@ -165,11 +165,11 @@
 
 /* Custom fantasy cursor */
 *, *::before, *::after {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2 L3 18 L8 14 L12 20 L15 18.5 L11 12.5 L17 12 Z' fill='%23d4a853' stroke='%231a1a2e' stroke-width='1.5'/%3E%3C/svg%3E") 3 2, auto;
+  cursor: url("/images/cursor.png") 3 2, auto;
 }
 
 button, a, [role="button"], .cursor-pointer {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M4 2 L4 20 L9 16 L14 23 L17 21 L12 14 L19 13 Z' fill='%23f0c040' stroke='%231a1a2e' stroke-width='1.5'/%3E%3Cfilter id='g'%3E%3CfeGaussianBlur stdDeviation='1'/%3E%3C/filter%3E%3Cpath d='M4 2 L4 20 L9 16 L14 23 L17 21 L12 14 L19 13 Z' fill='%23f0c04060' filter='url(%23g)'/%3E%3C/svg%3E") 4 2, pointer;
+  cursor: url("/images/cursor.png") 3 2, pointer;
 }
 
 @keyframes sprite-talk {
