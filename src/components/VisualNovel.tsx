@@ -282,6 +282,15 @@ const VisualNovel = ({ playerName, onBackToMenu, onOpenSettings, initialSave }: 
   const choice = choices[phase];
   const background = phaseBackgrounds[phase] || forestBackground;
 
+  // Audio system - determine scene from background
+  const audioScene = useMemo(() => {
+    const key = phaseBackgroundKeys[phase] || "forest";
+    if (key === "battlefield") return "battlefield" as const;
+    if (key === "carriage") return "carriage" as const;
+    return "forest" as const;
+  }, [phase]);
+  const { playClick, playTextAdvance, playChoice, playTransition } = useAudio(audioScene);
+
   const fullText = line ? t(line.textKey).replace("{player}", playerName) : "";
   const speaker = line?.speaker.replace("{player}", playerName) || "";
   const showSprite = line?.showSprite || "none";
